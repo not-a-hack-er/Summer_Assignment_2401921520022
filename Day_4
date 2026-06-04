@@ -1,0 +1,109 @@
+1572. Matrix Diagonal Sum
+
+
+  class Solution {
+public:
+    int diagonalSum(vector<vector<int>>& mat) {
+        
+        int n = mat.size();
+        int sum = 0;
+
+        for(int i = 0; i < n; i++) {
+            sum += mat[i][i];
+            sum += mat[i][n - 1 - i];
+        }
+
+        if(n % 2 == 1) {
+            sum -= mat[n/2][n/2];
+        }
+
+        return sum;
+    }
+};
+
+
+
+
+----------------------------------------------------------------------
+
+  566. Reshape the Matrix
+
+
+
+  class Solution {
+public:
+    vector<vector<int>> matrixReshape(vector<vector<int>>& mat, int r, int c) {
+     
+        int m = mat.size();
+        int n = mat[0].size();
+
+        if(m * n != r * c)
+            return mat;
+
+        vector<vector<int>> ans(r, vector<int>(c));
+
+        int k = 0;
+
+        for(int i = 0; i < m; i++) {
+            for(int j = 0; j < n; j++) {
+
+                ans[k / c][k % c] = mat[i][j];
+                k++;
+            }
+        }
+
+        return ans;   
+    }
+};
+
+
+
+
+----------------------------------------------------------------------------------
+
+
+  54. Spiral Matrix
+
+
+
+  class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& mat) {
+        vector<int> ans;
+    if (mat.empty() || mat[0].empty()) return ans;
+    
+    int rowStart = 0, rowEnd = mat.size() - 1;
+    int colStart = 0, colEnd = mat[0].size() - 1;
+    
+    while (rowStart <= rowEnd && colStart <= colEnd) {
+        // Traverse right
+        for (int i = colStart; i <= colEnd; i++) {
+            ans.push_back(mat[rowStart][i]);
+        }
+        rowStart++;
+        
+        // Traverse down
+        for (int i = rowStart; i <= rowEnd; i++) {
+            ans.push_back(mat[i][colEnd]);
+        }
+        colEnd--;
+        
+        if (rowStart <= rowEnd) {
+            // Traverse left
+            for (int i = colEnd; i >= colStart; i--) {
+                ans.push_back(mat[rowEnd][i]);
+            }
+            rowEnd--;
+        }
+        
+        if (colStart <= colEnd) {
+            // Traverse up
+            for (int i = rowEnd; i >= rowStart; i--) {
+                ans.push_back(mat[i][colStart]);
+            }
+            colStart++;
+        }
+    }
+    return ans;
+    }
+};
