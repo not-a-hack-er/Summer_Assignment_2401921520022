@@ -1,0 +1,73 @@
+Two Sum
+
+
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        vector<pair<int, int>> numWithIndex;
+    for (int i = 0; i < nums.size(); i++)
+        numWithIndex.push_back({nums[i], i});
+
+    sort(numWithIndex.begin(), numWithIndex.end());
+
+    int left = 0, right = nums.size() - 1;
+    while (left < right) {
+        int sum = numWithIndex[left].first + numWithIndex[right].first;
+        if (sum == target)
+            return {numWithIndex[left].second, numWithIndex[right].second};
+        else if (sum < target)
+            left++;
+        else
+            right--;
+    }
+    return {};
+    }
+};
+
+------------------------------------------------------------------------------------
+ Remove Duplicates from Sorted Array
+
+
+
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+ int a=1;
+        for(int i=1;i<nums.size();i++)
+        {
+            if(nums[i]!=nums[i-1])
+            {
+                nums[a]=nums[i];
+               a++;
+            }
+        }
+        
+   return a; }
+};
+
+
+--------------------------------------------------------------------------------------
+Best Time to Buy and Sell Stock
+
+
+
+
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+    
+    int minPrice = prices[0], maxProfit = 0;
+
+    for (int i = 1; i < prices.size(); ++i) {
+        if (prices[i] < minPrice)
+            minPrice = prices[i];
+        else
+            maxProfit = max(maxProfit, prices[i] - minPrice);
+    }
+
+    return maxProfit;
+}
+
+    
+};
