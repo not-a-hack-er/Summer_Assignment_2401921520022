@@ -1,0 +1,75 @@
+283. Move Zeroes
+
+
+
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        int l = 0;
+        
+       
+        for (int i = 0; i < nums.size(); i++) {
+            if (nums[i] != 0) {
+              
+                swap(nums[l], nums[i]);
+                l++;
+            }
+        }
+    }
+};
+------------------------------------------------------------------------------
+
+
+11. Container With Most Water
+
+
+
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+
+
+        
+        int left = 0, right = height.size() - 1;
+        int maxWater = 0;
+
+        while (left < right) {
+            int h = min(height[left], height[right]);
+            int width = right - left;
+            int area = h * width;
+            maxWater = max(maxWater, area);
+
+            // Move the pointer with the smaller height
+            if (height[left] < height[right]) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+
+        return maxWater;
+    }
+};
+        
+
+
+
+
+-------------------------------------------------------------------------------
+
+977. Squares of a Sorted Array
+
+
+
+class Solution {
+public:
+    vector<int> sortedSquares(vector<int>& nums) {
+
+        transform(nums.begin(), nums.end(), nums.begin(), [](int x){
+            return x * x;
+        });
+
+        sort(nums.begin(), nums.end());
+        return nums;
+    }
+};
