@@ -1,0 +1,93 @@
+28. Find the Index of the First Occurrence in a String
+
+
+
+  class Solution {
+public:
+    int strStr(string h, string n) {
+        int s= n.size();
+        int k = h.size();
+        
+        
+        for(int i=0;i<=k-s;i++)
+        {
+            bool check=true;
+                for(int j=0;j<s;j++)
+                {
+                    if(h[i+j]!=n[j])
+                    {
+                        check=false;
+                        break;
+                    }
+                    
+                }
+            if(check)
+            return i;
+        }
+        return -1;
+       
+    }
+};
+
+
+
+---------------------------------------------------------------------
+
+
+
+  392. Is Subsequence
+
+
+
+  class Solution {
+public:
+    bool isSubsequence(string s, string t) {
+        int ns=s.size();
+        int nt=t.size();
+        int k=0;
+        bool check = false;
+        for(int i=0;i<nt;i++)
+        {
+            
+            if(t[i]==s[k])
+            {
+                check=true;
+                k++;
+            }
+        }
+        return k==ns;
+    }
+};
+
+
+
+
+-------------------------------------------------------------------------
+
+
+
+  459. Repeated Substring Pattern
+
+
+
+  class Solution {
+public:
+    bool repeatedSubstringPattern(string s) {
+    int n = s.size();
+
+    for(int len=1; len<=n/2; len++) {
+        if(n % len != 0) continue;
+
+        string pattern = s.substr(0, len);
+        string temp = "";
+
+        while(temp.size() < n)
+            temp += pattern;
+
+        if(temp == s)
+            return true;
+    }
+
+    return false;
+}
+};
