@@ -1,0 +1,120 @@
+557. Reverse Words in a String III
+
+
+
+class Solution {
+public:
+    string reverseWords(string s) {
+        s=s+" ";
+        string ans="",r="";
+        int l = s.size();
+        for(int i=0;i<l;i++)
+        {
+            if(s[i]==' ')
+            {
+                reverse(r.begin(),r.end());
+                ans=ans+r;
+                ans=ans+" ";
+                r="";
+            }
+            else
+            {
+                r=r+s[i];
+            }
+        }
+        ans.pop_back();
+        return ans;
+    }
+};
+
+
+--------------------------------------------------------------------
+
+
+
+394. Decode String
+
+
+
+
+
+class Solution {
+public:
+    string decodeString(string s) {
+        stack<string> st;
+
+        for (char c : s) {
+            if (c != ']') {
+                st.push(string(1, c));
+            } 
+            else {
+                
+                string curr = "";
+                while (st.top() != "[")
+                {
+                    curr = st.top() + curr;
+                    st.pop();
+                }
+                st.pop(); 
+
+           
+                string num = "";
+                while (!st.empty() && isdigit(st.top()[0]))
+                {
+                    num = st.top() + num;
+                    st.pop();
+                }
+
+                int k = stoi(num);
+
+                string temp = "";
+                while (k--) temp += curr;
+
+                st.push(temp);
+            }
+        }
+
+        string ans = "";
+        while (!st.empty()) {
+            ans = st.top() + ans;
+            st.pop();
+        }
+
+        return ans;
+    }
+};
+
+
+
+
+--------------------------------------------------------------------
+
+
+
+22. Generate Parentheses
+
+
+
+
+class Solution {
+public:
+    vector<string> ans;
+
+    void solve(string curr, int open, int close, int n) {
+        if(curr.size() == 2 * n) {
+            ans.push_back(curr);
+            return;
+        }
+
+        if(open < n)
+            solve(curr + "(", open + 1, close, n);
+
+        if(close < open)
+            solve(curr + ")", open, close + 1, n);
+    }
+
+    vector<string> generateParenthesis(int n) {
+        solve("", 0, 0, n);
+        return ans;
+    }
+};
