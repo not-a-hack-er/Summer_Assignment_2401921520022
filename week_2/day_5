@@ -1,0 +1,131 @@
+49. Group Anagrams
+
+
+
+  class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+      unordered_map<string, vector<string>> map;
+
+    for (string s : strs) {
+        string sorted_s = s;
+        sort(sorted_s.begin(), sorted_s.end());
+        
+        map[sorted_s].push_back(s);
+    }
+
+    vector<vector<string>> result;
+   
+    for (auto pair : map) {
+        result.push_back(pair.second);
+    }
+
+    return result;  
+    }
+};
+
+
+
+-----------------------------------------------------------------------
+
+
+
+
+  443. String Compression
+
+
+
+class Solution {
+public:
+    int compress(vector<char>& chars) {
+
+        if(chars.size() == 1) return 1;
+
+        int count = 1;
+        string ans = "";
+
+        for(int i = 1; i < chars.size(); i++) {
+
+            if(chars[i] == chars[i - 1]) {
+                count++;
+            }
+            else {
+
+                ans += chars[i - 1];
+
+                if(count > 1) {
+                    ans += to_string(count);
+                }
+
+                count = 1;
+            }
+        }
+
+        ans += chars.back();
+
+        if(count > 1) {
+            ans += to_string(count);
+        }
+
+        for(int i = 0; i < ans.size(); i++) {
+            chars[i] = ans[i];
+        }
+
+        return ans.size();
+    }
+};
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------
+
+5. Longest Palindromic Substring
+
+  class Solution {
+public:
+
+    string longestPalindrome(string s) {
+
+        int n = s.size();
+        int start = 0, len = 1;
+
+        for(int i = 0; i < n; i++) {
+
+            // Odd length palindrome
+            int l = i, r = i;
+
+            while(l >= 0 && r < n && s[l] == s[r]) {
+
+                if(r - l + 1 > len) {
+                    len = r - l + 1;
+                    start = l;
+                }
+
+                l--;
+                r++;
+            }
+
+            // Even length palindrome
+            l = i;
+            r = i + 1;
+
+            while(l >= 0 && r < n && s[l] == s[r]) {
+
+                if(r - l + 1 > len) {
+                    len = r - l + 1;
+                    start = l;
+                }
+
+                l--;
+                r++;
+            }
+        }
+
+        return s.substr(start, len);
+    }
+};
+
+  
