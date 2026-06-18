@@ -1,0 +1,115 @@
+739. Daily Temperatures
+
+
+
+  class Solution {
+public:
+    vector<int> dailyTemperatures(vector<int>& temperatures) {
+        int n=temperatures.size();
+        vector<int> ans(n);//int c=0;
+        stack<int> st;
+        for(int i=n-1;i>=0;i--)
+        {
+            //c=0;
+            while(!st.empty() && temperatures[i]>=temperatures[st.top()])
+            {
+            
+            st.pop();
+            }
+            //ans[i]=c;
+            if(!st.empty())
+            ans[i]=st.top()-i;
+           st.push(i);
+        }
+        return ans;
+    }
+};
+
+
+-----------------------------------------------------------------------------------------
+
+
+  150. Evaluate Reverse Polish Notation
+
+
+
+
+  class Solution {
+public:
+    int evalRPN(vector<string>& tokens) {
+        stack<int> st;
+        unordered_map<string, function<int(int,int)>> mp={
+            {"+",[](int a,int b) {return a+b;}},
+            {"-",[](int a,int b) {return a-b;}},
+            {"*",[](int a,int b) {return a*b;}},
+            {"/",[](int a,int b) {return a/b;}}
+        };
+        int result=0;
+        for(string& t:tokens)
+        {
+            if(t=="+" || t=="-" || t=="/" || t=="*")
+            {
+                int b=st.top();
+                st.pop();
+
+                int a = st.top();
+                st.pop();
+
+                result = mp[t](a,b);
+                st.push(result);
+            }
+            else{
+                st.push(stoi(t));
+            }
+        }
+        return st.top();
+    }
+};
+
+
+
+
+
+-------------------------------------------------------------------------------
+
+
+
+
+
+  84. Largest Rectangle in Histogram
+
+
+
+
+
+  class Solution {
+public:
+    int largestRectangleArea(vector<int>& heights) {
+
+        stack<int> st;
+        int mx = INT_MIN;
+
+        for(int i = 0; i <= heights.size(); i++)
+        {
+            while(!st.empty() &&
+                  (i == heights.size() || heights[st.top()] > heights[i]))
+            {
+                int current = st.top();
+                st.pop();
+
+                int width;
+
+                if(st.empty())
+                    width = i;
+                else
+                    width = i - st.top() - 1;
+
+                mx = max(mx, width * heights[current]);
+            }
+
+            st.push(i);
+        }
+
+        return mx;
+    }
+};
