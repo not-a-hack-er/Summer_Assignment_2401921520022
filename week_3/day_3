@@ -1,0 +1,148 @@
+20. Valid Parentheses
+
+
+
+
+  class Solution {
+public:
+    bool isValid(string k) {
+        stack<char> ans;
+      for(int i=0;i<k.size();i++)
+      {
+          char ch=k[i];
+     if(ch=='{'||ch=='('||ch=='[')
+          ans.push(ch);
+          
+      else
+      {
+          if(!ans.empty())
+          {
+              char top=ans.top();
+              if((ch=='}')&&(top=='{')||(ch==')')&&(top=='(')||(ch==']')&&(top=='['))
+              {
+              ans.pop();
+              }
+              else{
+                  return false;
+              }
+          }
+          
+          else
+          {
+            return false;
+            }
+       }
+          
+      }
+      if(ans.empty())
+      return true;
+      else
+      return false;
+    }
+};
+
+
+
+
+
+------------------------------------------------------------------------------------------
+
+
+
+
+
+  155. Min Stack
+
+
+
+
+
+  class MinStack {
+public:
+    stack<int> st;
+    stack<int> mini;
+
+    MinStack() {}
+
+    void push(int val) {
+        st.push(val);
+
+        if (mini.empty() || val <= mini.top())
+            mini.push(val);
+    }
+
+    void pop() {
+        if (st.top() == mini.top())
+            mini.pop();
+
+        st.pop();
+    }
+
+    int top() {
+        return st.top();
+    }
+
+    int getMin() {
+        return mini.top();
+    }
+};
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * MinStack* obj = new MinStack();
+ * obj->push(val);
+ * obj->pop();
+ * int param_3 = obj->top();
+ * int param_4 = obj->getMin();
+ */
+
+
+
+
+
+
+---------------------------------------------------------------------------------------
+
+
+
+
+
+
+  class Solution {
+public:
+    vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
+        int n = nums2.size();
+        vector<int> nge(n);
+        stack<int> st;
+
+        
+        for (int i = n - 1; i >= 0; i--) {
+            int element = nums2[i];
+
+            
+            while (!st.empty() && st.top() <= element) {
+                st.pop();
+            }
+
+            
+            if (st.empty())
+            nge[i] = -1;
+            else nge[i] = st.top();
+
+            
+            st.push(element);
+        }
+
+        
+        vector<int> ans;
+        for (int x : nums1) {
+            for (int i = 0; i < n; i++) {
+                if (nums2[i] == x) {
+                    ans.push_back(nge[i]);
+                    break;
+                }
+            }
+        }
+
+        return ans;
+    }
+};
